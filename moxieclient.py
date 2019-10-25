@@ -3,9 +3,10 @@
 import paho.mqtt.client as mqtt
 import time
 
-
 broker_url = "pi-iot.local"
 broker_port = 1883
+
+
 
 def on_connect(client, userdata, flags, rc):
     print(f"Connected with result code: {rc}")
@@ -20,7 +21,9 @@ def on_button_message(client, userdata, message):
      
 def on_message(client, userdata, message):
     values = message.payload.decode()
-    print(message.payload.decode())
+    print(values)
+    with open('buttons.txt', 'a') as buttonfile:
+        buttonfile.write(values + '\n')
 
 client = mqtt.Client("robotsinheels")
 client.on_connect = on_connect
