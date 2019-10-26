@@ -3,6 +3,8 @@
 
 {% block styles %}
 {{ super() }}
+<link rel="stylesheet"
+      href="{{url_for('.static', filename='styles.css')}}">
 {% endblock %}
 
 {% block scripts %}
@@ -46,7 +48,7 @@
     ];
 
     socket.on('mqtt_message', function(data) {
-      console.log(data);
+      //console.log(data);
       var text = '(' + data['topic'] + ' qos: ' + data['qos'] + ') ' + data['payload'];
       var $textarea = $('#subscribe_messages');
       $textarea.val($textarea.val() + text + '\n');
@@ -60,7 +62,7 @@
         //console.log("team: " + teams[i] + " votes: " + votes[i+1])
         leaderboard.push([ teams[i], parseInt(votes[i+1])]);
         leaderboard.sort(compareSecondColumn);
-        console.log(leaderboard);
+        //console.log(leaderboard);
       }
       // print out each team by ranking        
       let $leaderboard_list = $('#leaderboard');
@@ -69,7 +71,7 @@
           $leaderboard_list.append(`<li class="list-group-item">${leaderboard[i][0]}</li>`);
       }
 
-
+      //sort second column
       function compareSecondColumn(a, b) {
           return b[1]-a[1] || a[0].localeCompare(b[0]);
       }
@@ -142,7 +144,12 @@
                   </div>
                 </div>
               </div>
+
             </div>
+            <div class="row">
+              <!-- <img src="static/fubarlabs.png" alt="fubarlabs logo" /> -->
+            </div>
+
           </div>
         </div>
       </div>
