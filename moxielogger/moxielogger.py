@@ -5,7 +5,7 @@ import paho.mqtt.client as mqtt
 
 # Support for changing the filename each time it runs. Should probably hardcode a name before an actual race
 # filename = f'files/moxielogger-{input("filename? >>> ")}.csv'
-filename = 'files/race2.csv'
+filename = 'files/race3.csv'
 # update header with actual team names, create file, write header to file
 # numbers start in top left and go across before going down
 #  1  |  2
