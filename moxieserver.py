@@ -10,14 +10,9 @@ from flask_socketio import SocketIO
 import base64 
 import io
 
-#from flask import render_template
-import matplotlib.pyplot as plt
-from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-plt.switch_backend('Agg')
-
 eventlet.monkey_patch()
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="static")
 app.config['SECRET_KEY'] = 'secret!'
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.config['MQTT_BROKER_URL'] = "192.168.1.26" 
