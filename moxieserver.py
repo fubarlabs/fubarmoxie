@@ -20,7 +20,7 @@ eventlet.monkey_patch()
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 app.config['TEMPLATES_AUTO_RELOAD'] = True
-app.config['MQTT_BROKER_URL'] = 'pi-iot.local'  
+app.config['MQTT_BROKER_URL'] = "192.168.1.26" 
 app.config['MQTT_BROKER_PORT'] = 1883  # default port for non-tls connection
 app.config['MQTT_KEEPALIVE'] = 5  # set the time interval for sending a ping to the broker to 5 seconds
 
@@ -43,7 +43,8 @@ def handle_publish(json_str):
 @socketio.on('subscribe')
 def handle_subscribe(json_str):
     data = json.loads(json_str)
-    mqtt.subscribe(data['BtnsOut'])
+    #mqtt.subscribe(data['BtnsOut'])
+    mqtt.subscribe(data['topic'])
 
 
 @socketio.on('unsubscribe_all')
