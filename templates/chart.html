@@ -12,7 +12,6 @@
 <script type="text/javascript" charset="utf-8">
   $(document).ready(function() {
     var socket = io.connect('http://' + document.domain + ':' + location.port);
-    let votes = [];
 
     $('#publish').click(function(event) {
       var topic = $('#topic').val();
@@ -38,42 +37,13 @@
       $('#unsubscribe').hide();
       $('#subscribe_topic').prop('readonly', false);
     });
-    let leaderboard = [];
-    let teams = ["1team", "2team","3team","4team","5team",
-      "6team", "7team","8team","9team","10team",
-      "11team", "12team","13team","14team","15team",
-      "16team", "17team","18team","19team","20team",
-    ];
 
     socket.on('mqtt_message', function(data) {
       console.log(data);
       var text = '(' + data['topic'] + ' qos: ' + data['qos'] + ') ' + data['payload'];
       var $textarea = $('#subscribe_messages');
       $textarea.val($textarea.val() + text + '\n');
-      let val = data['payload'];
-      let votes = val.split(",");
-      //clear the leaderboard
-      leaderboard = [];
-      // sort the teams
-      for (let i = 0; i < teams.length; i++) { 
-        //votes.splice(0, 1);
-        //console.log("team: " + teams[i] + " votes: " + votes[i+1])
-        leaderboard.push([ teams[i], parseInt(votes[i+1])]);
-        leaderboard.sort(compareSecondColumn);
-        console.log(leaderboard);
-      }
-      // print out each team by ranking        
-      let $leaderboard_list = $('#leaderboard');
-      $leaderboard_list.empty();
-      for (let i = 0; i < leaderboard.length; i++) { 
-          $leaderboard_list.append(`<li class="list-group-item">${leaderboard[i][0]}</li>`);
-      }
-
-
-      function compareSecondColumn(a, b) {
-          return b[1]-a[1] || a[0].localeCompare(b[0]);
-      }
-    });
+    })
   });
 </script>
 {% endblock %}
@@ -82,32 +52,56 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-xs-12">
-      <h1>Moxie Board!!! Vote Early and Often!!!</h1>
+      <h1>Flask-MQTT Example</h1>
     </div>
   </div>
   <div class="row">
     <div class="col-xs-6">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Team Moxie Rank</h3>
+          <h3 class="panel-title">Publish MQTT Message</h3>
         </div>
-        
         <div class="panel-body">
           <div class="col-xs-12">
             <div class="row">
-                <ul id="leaderboard" class="list-group">
-
-                </ul>         
+              <div class="form-horizontal">
+                <div class="form-group">
+                  <label class="control-label col-xs-4">Topic: </label>
+                  <div class="col-xs-8">
+                    <input id="topic" class="form-control">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-xs-4">Message: </label>
+                  <div class="col-xs-8">
+                    <input id="message" class="form-control">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-xs-4">Qos: </label>
+                  <div class="col-xs-8">
+                    <select id="qos" class="form-control">
+                      <option value=0>0</option>
+                      <option value=1>1</option>
+                      <option value=2>2</option>
+                    </select>
+                  </div> 
+                </div>
+                <div class="form-group">
+                  <div class="col-xs-8 col-xs-offset-4">
+                    <button id="publish" class="btn btn-primary">Publish</button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        
       </div>
     </div>
     <div class="col-xs-6">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Moxie Board Rankings</h3>
+          <h3 class="panel-title">Subscribe MQTT Messages</h3>
         </div>
         <div class="panel-body">
           <div class="col-xs-12">
@@ -116,7 +110,7 @@
                 <div class="form-group">
                   <label class="control-label col-xs-4">Topic:</label>
                   <div class="col-xs-8">
-                    <input id="subscribe_topic" class="form-control" value="BtnsOut">
+                    <input id="subscribe_topic" class="form-control">
                   </div>
                 </div>
                 <div class="form-group">
@@ -147,6 +141,29 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="row">
+    <canvas id="MoxieChart" width="400" height="400"></canvas>
+    <script>
+      var ctx = document.getElementById('MoxieChart');
+      var MoxieChart = new Chart(ctx, {
+    type: 'polar',
+    data: {
+              labels: ['1Red', '2Blue', '3Yellow', '4Green', '5Purple', '6Orange','7Red', '8Blue', '9Yellow', 
+              '10Green', '11Purple', '12Orange','13Red', '14Blue', '15Yellow', '16Green', '17Purple', '18Orange', '19Orange', '20Orange'],
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+    </script>
   </div>
 </div>
 {% endblock %}
