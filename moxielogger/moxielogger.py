@@ -1,12 +1,11 @@
-# https://mntolia.com/mqtt-python-with-paho-mqtt-client/ was very helpful
+# https://mntolia.com/mqtt-python-with-paho-mqtt-client/ was very helpfulssh
 # I'm tired, so you're not getting great documentation here right now
 
 import paho.mqtt.client as mqtt
-import datetime
 
 # Support for changing the filename each time it runs. Should probably hardcode a name before an actual race
-filename = f'files/moxielogger-{input("filename? >>> ")}.csv'
-
+# filename = f'files/moxielogger-{input("filename? >>> ")}.csv'
+filename = 'files/race2.csv'
 # update header with actual team names, create file, write header to file
 # numbers start in top left and go across before going down
 #  1  |  2
@@ -14,13 +13,15 @@ filename = f'files/moxielogger-{input("filename? >>> ")}.csv'
 #  5  |  6
 # and so on...
 
-header = "times,fubar1,fubar2,fubar3,fubar4,fubar5,fubar6,fubar7,fubar8,fubar9,fubar10,fubar11,fubar12,fubar12,fubar14,fubar15,fubar16,fubar17,fubar18,fubar19,fubar20"
+# header = "times,fubar1,fubar2,fubar3,fubar4,fubar5,fubar6,fubar7,fubar8,fubar9,fubar10,fubar11,fubar12,fubar12,fubar14,fubar15,fubar16,fubar17,fubar18,fubar19,fubar20"
+header = "times,lightning,livfree,aperture,fubar,pumpty,rugreasy,721mcd,08,coyote,10,rhombus,12,dragula1313,14,15,16,17,18,19,20"
 with open(filename, 'w') as f:
     f.write(header + '\n')
 
 # mqtt configuration
 broker_url = "pi-iot.local"
 broker_port = 1883
+# broker_port = 5000
 
 def on_connect(client, userdata, flags, rc):
     print(f"Connected with result code: {rc}")
