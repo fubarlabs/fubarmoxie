@@ -19,12 +19,12 @@ Shows the team rankings:
 
 `python moxieserver.py`
 
+### * Not working yet
 
 Resources:
 
 Simulate the messages:
 Paho Mqtt Publish:
-* Not working yet
 
 Docker Broker: 
 
