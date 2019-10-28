@@ -21,7 +21,7 @@ Shows the team rankings:
 
 ===
 
-### * Not working yet
+### Not working bits
 
 Resources:
 
