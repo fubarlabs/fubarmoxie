@@ -19,7 +19,7 @@ Shows the team rankings:
 
 `python moxieserver.py`
 
-====
+===
 
 ### * Not working yet
 
