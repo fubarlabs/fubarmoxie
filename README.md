@@ -1,11 +1,30 @@
-# fubarmoxie
+# Fubar Moxie 
+
+## Functioning Bits:
+
+Just be a client for the Moxie Board information:
+
+Just be a client:
+
+`python moxieclient.py`
+
+Log all the button events and save to file:
+
+```
+cd moxielogger
+python moxielogger
+```
+
+Shows the team rankings:
+
+`python moxieserver.py`
 
 
 Resources:
 
 Simulate the messages:
 Paho Mqtt Publish:
-
+* Not working yet
 
 Docker Broker: 
 
